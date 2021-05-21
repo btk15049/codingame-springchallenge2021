@@ -1,5 +1,5 @@
-*.in
 *.out
+test
 
 # for atcoder
 *.svg

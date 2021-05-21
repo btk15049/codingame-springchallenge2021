@@ -6,7 +6,7 @@
     {
       "label": "unit test",
       "type": "shell",
-      "command": "g++ $FILE -o $BIN -std=c++17 -D_GLIBCXX_DEBUG -DTEST -Wall -Wextra && $BIN",
+      "command": "g++ $FILE -o $BIN -std=c++17 -D_GLIBCXX_DEBUG -Wall -Wextra && $BIN",
       "options": {
         "env": {
           "FILE": "test.cpp",
