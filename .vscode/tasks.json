@@ -1,0 +1,36 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "unit test",
+      "type": "shell",
+      "command": "g++ $FILE -o $BIN -std=c++17 -D_GLIBCXX_DEBUG -DTEST -Wall -Wextra && $BIN",
+      "options": {
+        "env": {
+          "FILE": "test.cpp",
+          "BIN": "./test"
+        }
+      },
+      "problemMatcher": [],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "gen flamegraph",
+      "type": "shell",
+      "command": "mkdir -p flamegraph; g++ $FILE -std=c++17 -o $BIN -Wall -Wextra && sudo perf record -F 200 --call-graph dwarf -g java -cp ~/SpringChallenge2021/target/spring-2021-1.0-SNAPSHOT-jar-with-dependencies.jar Simulator -A $BIN -B $BIN  -t 1 -s 0 --turn-max-time 150 && sudo perf script | perl stackcollapse-perf.pl | perl flamegraph.pl > flamegraph.svg",
+      "options": {
+        "cwd": "${workspaceFolder}/flamegraph",
+        "env": {
+          "FILE": "${workspaceFolder}/main.cpp",
+          "BIN": "${workspaceFolder}/flamegraph/test"
+        }
+      },
+      "problemMatcher": []
+    }
+  ]
+}
